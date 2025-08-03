@@ -32,74 +32,49 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Smart Navbar and Filter scroll effect
+// Smart scroll behavior for navbar and menus
 let lastScrollTop = 0;
-let scrollTimeout;
 
-window.addEventListener('scroll', () => {
+function handleScroll() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
     const navbar = document.querySelector('.navbar');
     const galleryFilter = document.querySelector('.gallery-filter');
     const menuNav = document.querySelector('.menu-nav');
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
     
-    // Navbar behavior
+    // Add scrolled class for background effect
     if (navbar) {
-        // Add scrolled class for background effect
         if (currentScroll > 100) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-        
-        // Smart hide/show behavior
-        if (currentScroll > 100) {
-            if (currentScroll > lastScrollTop && currentScroll > 200) {
-                // Scrolling down - hide navbar
-                navbar.classList.add('navbar-hidden');
-            } else {
-                // Scrolling up - show navbar
-                navbar.classList.remove('navbar-hidden');
-            }
-        }
     }
     
-    // Gallery filter behavior (all devices)
-    if (galleryFilter) {
-        if (currentScroll > 100) {
-            if (currentScroll > lastScrollTop && currentScroll > 200) {
-                // Scrolling down - hide filter
-                galleryFilter.classList.add('filter-hidden');
-            } else {
-                // Scrolling up - show filter
-                galleryFilter.classList.remove('filter-hidden');
-            }
+    // Hide/show menus based on scroll direction
+    if (currentScroll > 100) {
+        if (currentScroll > lastScrollTop && currentScroll > 200) {
+            // Scrolling down - hide menus
+            if (navbar) navbar.classList.add('navbar-hidden');
+            if (galleryFilter) galleryFilter.classList.add('filter-hidden');
+            if (menuNav) menuNav.classList.add('menu-nav-hidden');
+        } else if (currentScroll < lastScrollTop) {
+            // Scrolling up - show menus
+            if (navbar) navbar.classList.remove('navbar-hidden');
+            if (galleryFilter) galleryFilter.classList.remove('filter-hidden');
+            if (menuNav) menuNav.classList.remove('menu-nav-hidden');
         }
-    }
-    
-    // Menu navigation behavior (all devices)
-    if (menuNav) {
-        if (currentScroll > 100) {
-            if (currentScroll > lastScrollTop && currentScroll > 200) {
-                // Scrolling down - hide menu nav
-                menuNav.classList.add('menu-nav-hidden');
-            } else {
-                // Scrolling up - show menu nav
-                menuNav.classList.remove('menu-nav-hidden');
-            }
-        }
-    }
-    
-    // Clear timeout and set new one
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        // Show all elements when user stops scrolling
+    } else {
+        // At top of page - always show menus
         if (navbar) navbar.classList.remove('navbar-hidden');
         if (galleryFilter) galleryFilter.classList.remove('filter-hidden');
         if (menuNav) menuNav.classList.remove('menu-nav-hidden');
-    }, 1000);
+    }
     
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-});
+}
+
+// Add scroll event listener
+window.addEventListener('scroll', handleScroll);
 
 // Menu Tab Functionality
 const menuTabs = document.querySelectorAll('.menu-tab');
