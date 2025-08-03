@@ -32,15 +32,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Smart Navbar scroll effect
+// Smart Navbar and Filter scroll effect
 let lastScrollTop = 0;
 let scrollTimeout;
 
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
+    const galleryFilter = document.querySelector('.gallery-filter');
+    const menuNav = document.querySelector('.menu-nav');
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Navbar behavior
     if (navbar) {
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        
         // Add scrolled class for background effect
         if (currentScroll > 100) {
             navbar.classList.add('scrolled');
@@ -49,7 +52,7 @@ window.addEventListener('scroll', () => {
         }
         
         // Smart hide/show behavior
-        if (currentScroll > 100) { // Only apply hide/show after scrolling past header
+        if (currentScroll > 100) {
             if (currentScroll > lastScrollTop && currentScroll > 200) {
                 // Scrolling down - hide navbar
                 navbar.classList.add('navbar-hidden');
@@ -58,16 +61,44 @@ window.addEventListener('scroll', () => {
                 navbar.classList.remove('navbar-hidden');
             }
         }
-        
-        // Clear timeout and set new one
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            // Show navbar when user stops scrolling
-            navbar.classList.remove('navbar-hidden');
-        }, 1000);
-        
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }
+    
+    // Gallery filter behavior (all devices)
+    if (galleryFilter) {
+        if (currentScroll > 100) {
+            if (currentScroll > lastScrollTop && currentScroll > 200) {
+                // Scrolling down - hide filter
+                galleryFilter.classList.add('filter-hidden');
+            } else {
+                // Scrolling up - show filter
+                galleryFilter.classList.remove('filter-hidden');
+            }
+        }
+    }
+    
+    // Menu navigation behavior (all devices)
+    if (menuNav) {
+        if (currentScroll > 100) {
+            if (currentScroll > lastScrollTop && currentScroll > 200) {
+                // Scrolling down - hide menu nav
+                menuNav.classList.add('menu-nav-hidden');
+            } else {
+                // Scrolling up - show menu nav
+                menuNav.classList.remove('menu-nav-hidden');
+            }
+        }
+    }
+    
+    // Clear timeout and set new one
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        // Show all elements when user stops scrolling
+        if (navbar) navbar.classList.remove('navbar-hidden');
+        if (galleryFilter) galleryFilter.classList.remove('filter-hidden');
+        if (menuNav) menuNav.classList.remove('menu-nav-hidden');
+    }, 1000);
+    
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
 
 // Menu Tab Functionality

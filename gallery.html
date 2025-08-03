@@ -422,6 +422,12 @@
     position: sticky;
     top: 80px;
     z-index: 100;
+    transition: transform 0.3s ease;
+    transform: translateY(0);
+}
+
+.gallery-filter.filter-hidden {
+    transform: translateY(-100%);
 }
 
 .filter-buttons {
