@@ -428,7 +428,7 @@ h1, h2, h3 {
 }
 
 .social-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 40px;
@@ -439,6 +439,16 @@ h1, h2, h3 {
     text-decoration: none;
     transition: all 0.3s ease;
     border: 1px solid rgba(212, 175, 55, 0.3);
+    position: relative;
+}
+
+.social-link i {
+    font-size: 16px;
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .social-link:hover {
