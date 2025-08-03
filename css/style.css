@@ -99,6 +99,11 @@ h1, h2, h3 {
     backdrop-filter: blur(10px);
     z-index: 1000;
     transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+.navbar.navbar-hidden {
+    transform: translateY(-100%);
 }
 
 .nav-container {

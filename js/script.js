@@ -32,15 +32,41 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar scroll effect
+// Smart Navbar scroll effect
+let lastScrollTop = 0;
+let scrollTimeout;
+
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if (navbar) {
-        if (window.scrollY > 100) {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Add scrolled class for background effect
+        if (currentScroll > 100) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
+        
+        // Smart hide/show behavior
+        if (currentScroll > 100) { // Only apply hide/show after scrolling past header
+            if (currentScroll > lastScrollTop && currentScroll > 200) {
+                // Scrolling down - hide navbar
+                navbar.classList.add('navbar-hidden');
+            } else {
+                // Scrolling up - show navbar
+                navbar.classList.remove('navbar-hidden');
+            }
+        }
+        
+        // Clear timeout and set new one
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            // Show navbar when user stops scrolling
+            navbar.classList.remove('navbar-hidden');
+        }, 1000);
+        
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }
 });
 

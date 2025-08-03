@@ -226,30 +226,6 @@
                             </label>
                         </div>
                         
-                        <div class="confirmation-method">
-                            <h3>Metodo di Conferma Preferito</h3>
-                            <div class="method-options">
-                                <label class="method-option">
-                                    <input type="radio" name="confirmMethod" value="email" checked>
-                                    <span class="radio-custom"></span>
-                                    <i class="fas fa-envelope"></i>
-                                    Email
-                                </label>
-                                <label class="method-option">
-                                    <input type="radio" name="confirmMethod" value="whatsapp">
-                                    <span class="radio-custom"></span>
-                                    <i class="fab fa-whatsapp"></i>
-                                    WhatsApp
-                                </label>
-                                <label class="method-option">
-                                    <input type="radio" name="confirmMethod" value="phone">
-                                    <span class="radio-custom"></span>
-                                    <i class="fas fa-phone"></i>
-                                    Telefono
-                                </label>
-                            </div>
-                        </div>
-                        
                         <button type="submit" class="btn btn-primary submit-btn">
                             <i class="fas fa-calendar-check"></i>
                             Invia Prenotazione
@@ -455,6 +431,31 @@
     color: #ffffff;
     font-size: 1rem;
     transition: all 0.3s ease;
+}
+
+.form-group select option {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+    padding: 8px 12px;
+}
+
+.form-group select option:hover,
+.form-group select option:focus,
+.form-group select option:checked {
+    background: #d4af37 !important;
+    color: #000000 !important;
+}
+
+/* Additional styling for better visibility */
+.form-group select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23ffffff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 40px;
 }
 
 .form-group input:focus,
